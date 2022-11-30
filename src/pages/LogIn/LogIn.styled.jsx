@@ -8,7 +8,6 @@ export const Form = styled.form`
   margin-bottom: ${p => p.theme.space[4]};
   width: ${p => p.theme.space[9]};
   padding: ${p => p.theme.space[3]};
-  background-color: ${p => p.theme.colors.white};
 `;
 export const Label = styled.label`
   display: flex;
@@ -31,7 +30,7 @@ export const Button = styled.button`
   line-height: ${p => p.theme.space[4]};
   border: ${p => p.theme.borders.fat};
   border-radius: ${p => p.theme.space[5]};
-  font-size: 11px;
+  font-size: 14px;
   text-transform: uppercase;
   text-align: center;
   letter-spacing: ${p => p.theme.space[2]};

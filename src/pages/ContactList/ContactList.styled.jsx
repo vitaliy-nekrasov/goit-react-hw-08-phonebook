@@ -32,3 +32,26 @@ export const Button = styled.button`
     background: ${p => p.theme.colors.red};
   }
 `;
+
+export const AddButton = styled.button`
+  margin-bottom: ${p => p.theme.space[4]};
+  text-decoration: none;
+  display: inline-block;
+  padding: ${p => p.theme.space[3]} ${p => p.theme.space[4]};
+  line-height: ${p => p.theme.space[4]};
+  border: ${p => p.theme.borders.normal};
+  border-radius: ${p => p.theme.space[5]};
+  font-size: 14px;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: ${p => p.theme.space[2]};
+  font-weight: ${p => p.theme.fontWeights.semiBold};
+  color: ${p => p.theme.colors.black};
+  background: ${p => p.theme.colors.white};
+  transition: 0.3s;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    background: ${p => p.theme.colors.green};
+  }
+`;

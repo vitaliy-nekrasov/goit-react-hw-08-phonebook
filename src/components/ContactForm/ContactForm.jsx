@@ -1,7 +1,7 @@
 import { Form, Label, Input, Button } from './ContactForm.styled';
 import { useAddContactMutation } from 'redux/contactsSlice';
 
-export function ContactForm() {
+export function ContactForm({ onClose }) {
   const [addContact] = useAddContactMutation();
 
   const handlerSubmit = e => {
@@ -12,6 +12,7 @@ export function ContactForm() {
     };
     e.target.reset();
     addContact(contact);
+    onClose();
   };
 
   return (
