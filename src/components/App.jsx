@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import authOperations from 'redux/auth/authOperations';
 import { RestrictedRoute } from './RestrictedRoute/RestrictedRoute';
+import { PrivateRoute } from './PrivateRoute/PrivateRoute';
 
 export function App() {
   const dispatch = useDispatch();
@@ -20,7 +21,10 @@ export function App() {
     <Box pl="30px" pr="30px">
       <Routes>
         <Route path="/" element={<Navigation />}>
-          <Route path="contacts" element={<ContactList />} />
+          <Route
+            path="contacts"
+            element={<PrivateRoute component={<ContactList />} />}
+          />
           <Route
             path="register"
             element={

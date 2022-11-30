@@ -41,3 +41,5 @@ export const StyledLink = styled(NavLink)`
     margin-right: ${p => p.theme.space[3]};
   }
 `;
+
+export const Title = styled.h1``;
