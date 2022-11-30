@@ -1,17 +1,15 @@
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
 
-export const Header = styled.header`
-  padding-top: 20px;
-  padding-bottom: 20px;
-  border-bottom: ${p => p.theme.borders.fat};
-  margin-bottom: 20px;
-`;
-export const Nav = styled.nav`
+export const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  align-items: center;
 `;
-export const StyledLink = styled(NavLink)`
+export const User = styled.p`
+  margin-right: ${p => p.theme.space[3]};
+  font-size: 20px;
+  font-style: italic;
+`;
+export const Button = styled.button`
   text-decoration: none;
   display: inline-block;
   padding: ${p => p.theme.space[3]} ${p => p.theme.space[4]};
@@ -30,14 +28,6 @@ export const StyledLink = styled(NavLink)`
 
   &:hover,
   &:focus {
-    background: ${p => p.theme.colors.green};
-  }
-
-  &.active {
-    background: ${p => p.theme.colors.green};
-  }
-
-  &:not(:last-child) {
-    margin-right: ${p => p.theme.space[3]};
+    background: ${p => p.theme.colors.red};
   }
 `;
