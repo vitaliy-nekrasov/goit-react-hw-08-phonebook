@@ -1,11 +1,10 @@
 import { Form, Label, Input, Button } from './ContactForm.styled';
 import { useAddContactMutation } from 'redux/contactsSlice';
-// import { useSelector } from 'react-redux';
-// import { selectContacts } from 'redux/selectors';
+import { useGetContactsQuery } from 'redux/contactsSlice';
 
 export function ContactForm({ onClose }) {
   const [addContact] = useAddContactMutation();
-  // const contacts = useSelector(selectContacts);
+  const { data } = useGetContactsQuery();
 
   const handlerSubmit = e => {
     e.preventDefault();
@@ -14,7 +13,7 @@ export function ContactForm({ onClose }) {
       number: e.target.phone.value,
     };
     e.target.reset();
-    // console.log(contacts);
+    console.log(data);
     addContact(contact);
     onClose();
   };
