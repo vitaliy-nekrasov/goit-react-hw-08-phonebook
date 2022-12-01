@@ -1,17 +1,20 @@
-import { Form, Label, Input, Button } from './ContactForm.styled';
-import { useAddContactMutation } from 'redux/contactsSlice';
+import { Form, Label, Input, Button } from './UpdateContactForm.styled';
+import { useUpdateContactMutation } from 'redux/contactsSlice';
+import { useState } from 'react';
 
-export function ContactForm({ onClose }) {
-  const [addContact] = useAddContactMutation();
+export function UpdateContactForm({ onClose, name, number, id }) {
+  const [updateContact] = useUpdateContactMutation();
+  const [nameValue, setNameValue] = useState(name);
+  const [numberValue, setNumberValue] = useState(number);
 
   const handlerSubmit = e => {
     e.preventDefault();
     const contact = {
-      name: e.target.name.value,
-      number: e.target.phone.value,
+      id,
+      contact: { name: nameValue, number: numberValue },
     };
     e.target.reset();
-    addContact(contact);
+    updateContact(contact);
     onClose();
   };
 
@@ -22,6 +25,10 @@ export function ContactForm({ onClose }) {
         <Input
           type="text"
           name="name"
+          value={nameValue}
+          onChange={e => {
+            setNameValue(e.target.value);
+          }}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
@@ -32,12 +39,16 @@ export function ContactForm({ onClose }) {
         <Input
           type="tel"
           name="phone"
+          value={numberValue}
+          onChange={e => {
+            setNumberValue(e.target.value);
+          }}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
         />
       </Label>
-      <Button type="submit">Save contact</Button>
+      <Button type="submit">Change contact</Button>
     </Form>
   );
 }

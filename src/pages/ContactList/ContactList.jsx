@@ -3,6 +3,7 @@ import { Loader } from 'components/Loader/Loader';
 import { Filter } from 'components/Filter/Filter';
 import { Modal } from 'components/Modal/Modal';
 import { ContactForm } from 'components/ContactForm/ContactForm';
+import { UpdateContactForm } from 'components/UpdateContactForm/UpdateContactForm';
 import { useState } from 'react';
 import { getFilterValue } from 'redux/filterSlice';
 import { useSelector } from 'react-redux';
@@ -13,6 +14,10 @@ import {
 
 export function ContactList() {
   const [showModal, setShowModal] = useState(false);
+  const [showChangeContactModal, setShowChangeContactModal] = useState(false);
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+  const [id, setId] = useState('');
   const { data: contacts, isFetching, error } = useGetContactsQuery();
   const [deleteContact] = useDeleteContactMutation();
 
@@ -44,13 +49,24 @@ export function ContactList() {
               return (
                 <Item key={contact.id}>
                   <Text>
-                    {contact.name}: {contact.phone}
+                    {contact.name}: {contact.number}
                   </Text>
                   <Button
                     type="button"
                     onClick={() => deleteContact(contact.id)}
                   >
                     Delete
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      setShowChangeContactModal(prevState => !prevState);
+                      setName(contact.name);
+                      setNumber(contact.number);
+                      setId(contact.id);
+                    }}
+                  >
+                    Change contact
                   </Button>
                 </Item>
               );
@@ -61,6 +77,18 @@ export function ContactList() {
       {showModal && (
         <Modal onClose={() => setShowModal(prevState => !prevState)}>
           <ContactForm onClose={() => setShowModal(prevState => !prevState)} />
+        </Modal>
+      )}
+      {showChangeContactModal && (
+        <Modal
+          onClose={() => setShowChangeContactModal(prevState => !prevState)}
+        >
+          <UpdateContactForm
+            onClose={() => setShowChangeContactModal(prevState => !prevState)}
+            name={name}
+            number={number}
+            id={id}
+          />
         </Modal>
       )}
     </div>

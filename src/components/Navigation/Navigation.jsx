@@ -1,5 +1,12 @@
 import { Outlet } from 'react-router-dom';
-import { Header, Nav, StyledLink, Title } from './Navigation.styled';
+import {
+  Header,
+  Nav,
+  StyledLink,
+  Title,
+  Wrapper,
+  StyledLinkContacts,
+} from './Navigation.styled';
 import { UserMenu } from 'components/UserMenu/UserMenu';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from 'redux/selectors';
@@ -12,14 +19,16 @@ export function Navigation() {
         <Nav>
           <Title>Phonebook</Title>
           {isLoggedIn ? (
-            <StyledLink to="/contacts">Contacts</StyledLink>
+            <Wrapper>
+              <StyledLinkContacts to="/contacts">Contacts</StyledLinkContacts>
+              <UserMenu />
+            </Wrapper>
           ) : (
             <div>
               <StyledLink to="/register">Sign Up</StyledLink>
               <StyledLink to="/login">Log In</StyledLink>
             </div>
           )}
-          <UserMenu />
         </Nav>
       </Header>
       <Outlet />

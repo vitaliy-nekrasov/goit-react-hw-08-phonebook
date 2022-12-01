@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -19,6 +20,9 @@ const register = createAsyncThunk('auth/register', async credentials => {
     return data;
   } catch (error) {
     console.log(error);
+    return Notify.failure('Sorry, this user already is registered!', {
+      timeout: 3000,
+    });
   }
 });
 
@@ -29,6 +33,9 @@ const logIn = createAsyncThunk('auth/login', async credentials => {
     return data;
   } catch (error) {
     console.log(error);
+    return Notify.failure('Sorry, but I don`t find this user! Please Sign Up', {
+      timeout: 3000,
+    });
   }
 });
 

@@ -29,7 +29,21 @@ export const Button = styled.button`
   cursor: pointer;
   &:hover,
   &:focus {
-    background: ${p => p.theme.colors.red};
+    background: ${({ children, theme }) => {
+      switch (children) {
+        case 'Delete': {
+          return theme.colors.red;
+        }
+        case 'Change contact': {
+          return theme.colors.yellow;
+        }
+        default:
+          return theme.colors.white;
+      }
+    }};
+  }
+  &:not(:last-child) {
+    margin-right: ${p => p.theme.space[3]};
   }
 `;
 
