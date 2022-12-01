@@ -5,7 +5,7 @@ import { Modal } from 'components/Modal/Modal';
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { UpdateContactForm } from 'components/UpdateContactForm/UpdateContactForm';
 import { useState } from 'react';
-import { getFilterValue } from 'redux/filterSlice';
+import { selectFilterValue } from 'redux/selectors';
 import { useSelector } from 'react-redux';
 import {
   useGetContactsQuery,
@@ -21,7 +21,7 @@ export function ContactList() {
   const { data: contacts, isFetching, error } = useGetContactsQuery();
   const [deleteContact] = useDeleteContactMutation();
 
-  const filter = useSelector(getFilterValue);
+  const filter = useSelector(selectFilterValue);
 
   const visibleContacts = () => {
     const normalizeFilter = filter.toLocaleLowerCase();

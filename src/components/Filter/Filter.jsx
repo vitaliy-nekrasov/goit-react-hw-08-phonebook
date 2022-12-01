@@ -1,10 +1,11 @@
 import { Label, Input } from './Filter.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateFilter, getFilterValue } from 'redux/filterSlice';
+import { updateFilter } from 'redux/filterSlice';
+import { selectFilterValue } from 'redux/selectors';
 
 export function Filter() {
   const dispatch = useDispatch();
-  const value = useSelector(getFilterValue);
+  const value = useSelector(selectFilterValue);
 
   return (
     <Label>
