@@ -22,9 +22,8 @@ export default function ContactList() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [id, setId] = useState('');
-  const { data: contacts, isFetching, error } = useGetContactsQuery();
+  const { data: contacts, isLoading, error } = useGetContactsQuery();
   const [deleteContact] = useDeleteContactMutation();
-
   const filter = useSelector(selectFilterValue);
 
   const visibleContacts = () => {
@@ -34,10 +33,25 @@ export default function ContactList() {
     );
   };
 
+  const handleDeleteContact = id => {
+    deleteContact(id);
+    Notify.success('Delete contact success!', {
+      timeout: 3000,
+      distance: '100px',
+    });
+  };
+
+  const handleChangeContact = (name, number, id) => {
+    setShowChangeContactModal(prevState => !prevState);
+    setName(name);
+    setNumber(number);
+    setId(id);
+  };
+
   return (
     <Suspense fallback={null}>
       {error && <Text>Sorry something wrong! :(</Text>}
-      {isFetching ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <div>
@@ -49,32 +63,18 @@ export default function ContactList() {
           </AddButton>
           <Filter />
           <List>
-            {visibleContacts().map(contact => {
+            {visibleContacts().map(({ name, number, id }) => {
               return (
-                <Item key={contact.id}>
+                <Item key={id}>
                   <Text>
-                    {contact.name}: {contact.number}
+                    {name}: {number}
                   </Text>
-                  <Button
-                    type="button"
-                    onClick={() => {
-                      deleteContact(contact.id);
-                      Notify.success('Delete contact!', {
-                        timeout: 3000,
-                        distance: '100px',
-                      });
-                    }}
-                  >
+                  <Button type="button" onClick={() => handleDeleteContact(id)}>
                     Delete
                   </Button>
                   <Button
                     type="button"
-                    onClick={() => {
-                      setShowChangeContactModal(prevState => !prevState);
-                      setName(contact.name);
-                      setNumber(contact.number);
-                      setId(contact.id);
-                    }}
+                    onClick={() => handleChangeContact(name, number, id)}
                   >
                     Change contact
                   </Button>

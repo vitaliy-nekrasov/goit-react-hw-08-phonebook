@@ -1,6 +1,7 @@
 import { createPortal } from 'react-dom';
 import { useEffect } from 'react';
 import { Overlay, Children } from './Modal.styled';
+import PropTypes from 'prop-types';
 
 const modalRoot = document.querySelector('#modal-root');
 
@@ -30,3 +31,8 @@ export default function Modal({ children, onClose }) {
     modalRoot
   );
 }
+
+Modal.propTypes = {
+  children: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
+};

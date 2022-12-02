@@ -1,6 +1,8 @@
 import { Form, Label, Input, Button } from './UpdateContactForm.styled';
 import { useUpdateContactMutation } from 'redux/contactsSlice';
 import { useState } from 'react';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import PropTypes from 'prop-types';
 
 export default function UpdateContactForm({ onClose, name, number, id }) {
   const [updateContact] = useUpdateContactMutation();
@@ -15,6 +17,10 @@ export default function UpdateContactForm({ onClose, name, number, id }) {
     };
     e.target.reset();
     updateContact(contact);
+    Notify.success('Change contact success!', {
+      timeout: 3000,
+      distance: '100px',
+    });
     onClose();
   };
 
@@ -52,3 +58,10 @@ export default function UpdateContactForm({ onClose, name, number, id }) {
     </Form>
   );
 }
+
+UpdateContactForm.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+};

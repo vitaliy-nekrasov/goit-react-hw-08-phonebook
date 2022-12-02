@@ -1,6 +1,7 @@
 import { Form, Label, Input, Button } from './ContactForm.styled';
 import { useAddContactMutation } from 'redux/contactsSlice';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import PropTypes from 'prop-types';
 
 export default function ContactForm({ onClose, contacts }) {
   const [addContact] = useAddContactMutation();
@@ -23,7 +24,7 @@ export default function ContactForm({ onClose, contacts }) {
       });
     } else {
       addContact(newContact);
-      Notify.success('Add a new contact!', {
+      Notify.success('Add a new contact success!', {
         timeout: 3000,
         distance: '100px',
       });
@@ -58,3 +59,8 @@ export default function ContactForm({ onClose, contacts }) {
     </Form>
   );
 }
+
+ContactForm.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  contacts: PropTypes.array.isRequired,
+};
