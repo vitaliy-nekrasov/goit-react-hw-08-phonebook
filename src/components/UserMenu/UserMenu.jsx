@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectEmail, selectIsLoggedIn } from 'redux/selectors';
 import authOperations from 'redux/auth/authOperations';
 
-export function UserMenu() {
+export default function UserMenu() {
   const email = useSelector(selectEmail);
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const dispatch = useDispatch();

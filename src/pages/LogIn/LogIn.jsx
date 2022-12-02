@@ -2,7 +2,7 @@ import { Form, Label, Input, Button } from './LogIn.styled';
 import { useDispatch } from 'react-redux';
 import authOperations from 'redux/auth/authOperations';
 
-export function LogIn() {
+export default function LogIn() {
   const dispatch = useDispatch();
 
   const handleSubmit = e => {

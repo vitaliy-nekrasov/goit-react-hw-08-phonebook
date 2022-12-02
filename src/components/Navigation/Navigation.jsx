@@ -7,11 +7,13 @@ import {
   Wrapper,
   StyledLinkContacts,
 } from './Navigation.styled';
-import { UserMenu } from 'components/UserMenu/UserMenu';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from 'redux/selectors';
+import { Suspense, lazy } from 'react';
 
-export function Navigation() {
+const UserMenu = lazy(() => import('components/UserMenu/UserMenu'));
+
+export default function Navigation() {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   return (
     <div>
@@ -31,7 +33,9 @@ export function Navigation() {
           )}
         </Nav>
       </Header>
-      <Outlet />
+      <Suspense fallback={null}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { Form, Label, Input, Button } from './UpdateContactForm.styled';
 import { useUpdateContactMutation } from 'redux/contactsSlice';
 import { useState } from 'react';
 
-export function UpdateContactForm({ onClose, name, number, id }) {
+export default function UpdateContactForm({ onClose, name, number, id }) {
   const [updateContact] = useUpdateContactMutation();
   const [nameValue, setNameValue] = useState(name);
   const [numberValue, setNumberValue] = useState(number);

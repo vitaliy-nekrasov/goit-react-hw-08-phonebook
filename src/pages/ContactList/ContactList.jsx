@@ -1,18 +1,22 @@
 import { List, Item, Text, Button, AddButton } from './ContactList.styled';
-import { Loader } from 'components/Loader/Loader';
-import { Filter } from 'components/Filter/Filter';
-import { Modal } from 'components/Modal/Modal';
-import { ContactForm } from 'components/ContactForm/ContactForm';
-import { UpdateContactForm } from 'components/UpdateContactForm/UpdateContactForm';
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { selectFilterValue } from 'redux/selectors';
 import { useSelector } from 'react-redux';
 import {
   useGetContactsQuery,
   useDeleteContactMutation,
 } from 'redux/contactsSlice';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-export function ContactList() {
+const Loader = lazy(() => import('components/Loader/Loader'));
+const Filter = lazy(() => import('components/Filter/Filter'));
+const Modal = lazy(() => import('components/Modal/Modal'));
+const ContactForm = lazy(() => import('components/ContactForm/ContactForm'));
+const UpdateContactForm = lazy(() =>
+  import('components/UpdateContactForm/UpdateContactForm')
+);
+
+export default function ContactList() {
   const [showModal, setShowModal] = useState(false);
   const [showChangeContactModal, setShowChangeContactModal] = useState(false);
   const [name, setName] = useState('');
@@ -31,7 +35,7 @@ export function ContactList() {
   };
 
   return (
-    <div>
+    <Suspense fallback={null}>
       {error && <Text>Sorry something wrong! :(</Text>}
       {isFetching ? (
         <Loader />
@@ -53,7 +57,13 @@ export function ContactList() {
                   </Text>
                   <Button
                     type="button"
-                    onClick={() => deleteContact(contact.id)}
+                    onClick={() => {
+                      deleteContact(contact.id);
+                      Notify.success('Delete contact!', {
+                        timeout: 3000,
+                        distance: '100px',
+                      });
+                    }}
                   >
                     Delete
                   </Button>
@@ -76,7 +86,10 @@ export function ContactList() {
       )}
       {showModal && (
         <Modal onClose={() => setShowModal(prevState => !prevState)}>
-          <ContactForm onClose={() => setShowModal(prevState => !prevState)} />
+          <ContactForm
+            onClose={() => setShowModal(prevState => !prevState)}
+            contacts={contacts}
+          />
         </Modal>
       )}
       {showChangeContactModal && (
@@ -91,6 +104,6 @@ export function ContactList() {
           />
         </Modal>
       )}
-    </div>
+    </Suspense>
   );
 }

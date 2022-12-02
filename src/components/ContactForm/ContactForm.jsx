@@ -1,20 +1,34 @@
 import { Form, Label, Input, Button } from './ContactForm.styled';
 import { useAddContactMutation } from 'redux/contactsSlice';
-import { useGetContactsQuery } from 'redux/contactsSlice';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-export function ContactForm({ onClose }) {
+export default function ContactForm({ onClose, contacts }) {
   const [addContact] = useAddContactMutation();
-  const { data } = useGetContactsQuery();
 
   const handlerSubmit = e => {
     e.preventDefault();
-    const contact = {
+    const newContact = {
       name: e.target.name.value,
       number: e.target.phone.value,
     };
+    const findContact = contacts.find(contact =>
+      contact.name
+        .toLocaleLowerCase()
+        .includes(newContact.name.toLocaleLowerCase())
+    );
+    if (findContact) {
+      Notify.failure(`${newContact.name} is already in contacts.`, {
+        timeout: 3000,
+        distance: '100px',
+      });
+    } else {
+      addContact(newContact);
+      Notify.success('Add a new contact!', {
+        timeout: 3000,
+        distance: '100px',
+      });
+    }
     e.target.reset();
-    console.log(data);
-    addContact(contact);
     onClose();
   };
 

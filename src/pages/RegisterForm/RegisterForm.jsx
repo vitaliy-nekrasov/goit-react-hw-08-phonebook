@@ -2,7 +2,7 @@ import { Form, Label, Input, Button } from './RegisterForm.styled';
 import { useDispatch } from 'react-redux';
 import authOperations from 'redux/auth/authOperations';
 
-export function RegisterForm() {
+export default function RegisterForm() {
   const dispatch = useDispatch();
 
   const handleSubmit = e => {

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateFilter } from 'redux/filterSlice';
 import { selectFilterValue } from 'redux/selectors';
 
-export function Filter() {
+export default function Filter() {
   const dispatch = useDispatch();
   const value = useSelector(selectFilterValue);
 

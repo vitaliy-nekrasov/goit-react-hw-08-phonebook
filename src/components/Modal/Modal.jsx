@@ -4,7 +4,7 @@ import { Overlay, Children } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-export function Modal({ children, onClose }) {
+export default function Modal({ children, onClose }) {
   useEffect(() => {
     function handleKeyDown(e) {
       if (e.code === 'Escape') {

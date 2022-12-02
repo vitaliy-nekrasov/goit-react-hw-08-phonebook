@@ -22,6 +22,7 @@ const register = createAsyncThunk('auth/register', async credentials => {
     console.log(error);
     return Notify.failure('Sorry, this user already is registered!', {
       timeout: 3000,
+      distance: '100px',
     });
   }
 });
@@ -35,6 +36,7 @@ const logIn = createAsyncThunk('auth/login', async credentials => {
     console.log(error);
     return Notify.failure('Sorry, but I don`t find this user! Please Sign Up', {
       timeout: 3000,
+      distance: '100px',
     });
   }
 });
